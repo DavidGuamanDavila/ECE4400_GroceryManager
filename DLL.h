@@ -44,7 +44,7 @@ public:
         }
         else {
             while (temp != NULL) {
-                temp->data.displayInfo();
+                cout<<temp->data->getPrice()<<" ";
                 temp = temp->next;
             }
         }
@@ -91,7 +91,7 @@ public:
             NodeDLL < DT >* curr = head_ref;
             NodeDLL < DT >* prev = NULL;
             //Create variable that will have the current item name
-            DelT CurrItemName = curr->data.getName();
+            DelT CurrItemName = curr->data->getName();
             //Initialize variable that will return the price
             double price;
             // Traverse through the DLL
@@ -105,21 +105,21 @@ public:
                 prev = curr;
                 curr = curr->next;
                 //Update the current item name with respect to the current pointer
-                CurrItemName = curr->data.getName();
+                CurrItemName = curr->data->getName();
             }
             // ----------------------------------------------------
             // Now address different situations
             // Check if the node found is the only node in the list
             if (CurrItemName == key && curr->next == NULL && curr->prev == NULL && curr == head_ref) {
                 // Update the head reference to NULL
-                price = curr->data.getPrice();
+                price = curr->data->getPrice();
                 head_ref = NULL;
                 free(curr);
                 cout << "Head node was deleted. Head node was the only node in the DLL" << endl;
             }
             // Check if the node deleted is the first node and the DLL has more nodes
             else if (curr == head_ref) {
-                price = curr->data.getPrice();
+                price = curr->data->getPrice();
                 head_ref = head_ref->next;
                 // Make sure the previous of the head reference is pointing to NULL
                 head_ref->prev = NULL;
@@ -128,14 +128,14 @@ public:
             }
             // Check if the node deleted is the last node
             else if (curr->next == NULL) {
-                price = curr->data.getPrice();
+                price = curr->data->getPrice();
                 prev->next = NULL;
                 cout << "Last node was deleted" << endl;
                 free(curr);
             }
             // Address the last situation where the node is not in the front or end of the DLL
             else {
-                price = curr->data.getPrice();
+                price = curr->data->getPrice();
                 prev->next = curr->next;
                 (curr->next)->prev = curr->prev;
                 cout << "Node deleted. Found within the DLL. Not head or last node." << endl;
