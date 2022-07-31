@@ -8,14 +8,18 @@ class CQ
 	// Initialize front and rear
 	int rear, front;
 
-	// Circular Queue
+	// Initialize variable that will store the size of the array
 	int SIZE;
+	//Initialize the array
 	T* content;
 public:
 	CQ(int valueofsize)
 	{
+		//Set front and rear to -1 which denotes the CQ is empty
 		front = rear = -1;
+		//Define the variable that stores the size of the array
 		SIZE = valueofsize;
+		//Define the array
 		content = new T[SIZE];
 	}
 
@@ -95,6 +99,10 @@ public:
 				cout << content[j] << ", ";
 		}
 		cout << endl;
+	}
+	//Destructor
+	~CQ() {
+		delete[] content;
 	}
 };
 // CQ Class Ends
