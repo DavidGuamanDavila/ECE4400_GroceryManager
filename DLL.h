@@ -6,14 +6,15 @@ using namespace std;
 template <typename DT>
 class NodeDLL {
 public:
-    // Creation of data
-    DT data;
+    // Creation of data 
+    //data is a pointer to an item
+    DT* data;
     // Creation of pointer to next node
-    NodeDLL <DT> * next;
+    NodeDLL <DT>* next;
     // Creation of pointer to previous node
-    NodeDLL <DT> * prev;
+    NodeDLL <DT>* prev;
     //Constructor creation
-    NodeDLL(DT new_data) {
+    NodeDLL(DT* new_data) {
         this->data = new_data;
         next = NULL;
         prev = NULL;
@@ -26,7 +27,7 @@ template <typename DT, typename DelT>
 class DLL {
 public:
     //Initialize head reference node
-    NodeDLL <DT> * head_ref;
+    NodeDLL <DT>* head_ref;
     // Constructor
     DLL() {
         head_ref = NULL;
@@ -37,7 +38,7 @@ public:
     // Function to print the DLL elements
     void printDLL() {
         //Create a temporary rote to traverse the DLL
-        NodeDLL <DT> * temp = head_ref;
+        NodeDLL <DT>* temp = head_ref;
         if (head_ref == NULL) {
             cout << "List is empty!" << endl;
         }
@@ -49,8 +50,8 @@ public:
         }
     }
     // Function that inserts data to the begining of the DLL and returns a node
-    NodeDLL <DT> * pushDLL(DT* new_data) {
-        NodeDLL <DT> * new_node = new NodeDLL<DT>(*new_data);
+    NodeDLL <DT>* pushDLL(DT* new_data) {
+        NodeDLL <DT>* new_node = new NodeDLL<DT>(new_data);
         if (head_ref == NULL) {
             // Make the new node next equal to the head reference
             new_node->next = head_ref;
@@ -96,7 +97,7 @@ public:
             // Traverse through the DLL
             while (CurrItemName != key) {
                 //Address situation where the key is not within the SLL
-                if (curr == NULL || curr -> next == NULL) {
+                if (curr == NULL || curr->next == NULL) {
                     cout << "No record found with the name entered." << endl;
                     return 0;
                 }
@@ -137,25 +138,25 @@ public:
                 price = curr->data.getPrice();
                 prev->next = curr->next;
                 (curr->next)->prev = curr->prev;
-                cout << "Node deleted. Found within the DLL. Not head or last node." <<endl;
+                cout << "Node deleted. Found within the DLL. Not head or last node." << endl;
                 delete curr;
             }
             return price;
         }
     }
     // Destructor 
-    ~DLL() {
-    NodeDLL < DT >* deln = head_ref;
-    NodeDLL < DT >* nextdel = NULL;
-    // Traverse through the DLL
-    while (deln != NULL) {
-    // Update pointers
-    nextdel = deln -> next;
-    delete deln;
-    deln = nextdel;
-    }
-    delete nextdel;
-    delete head_ref;
-    }
+    //~DLL() {
+    //    NodeDLL < DT >* deln = head_ref;
+    //    NodeDLL < DT >* nextdel = NULL;
+    //    // Traverse through the DLL
+    //    while (deln != NULL) {
+    //        // Update pointers
+    //        nextdel = deln->next;
+    //        delete deln;
+    //        deln = nextdel;
+    //    }
+    //    delete nextdel;
+    //    delete head_ref;
+    //}
 };
 // Double Linked List Class Ends
