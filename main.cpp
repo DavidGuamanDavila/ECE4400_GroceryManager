@@ -39,6 +39,27 @@ int main() {
     cout << g << endl;
     cout << p << endl;
     cout << gp << endl;
+	
+	  //Circular Queue Testing
+
+    /*CQ<string> x(3);
+    x.deQueue();
+    x.enQueue("Bob Dylan");
+    x.enQueue("Michael McCarthy");
+    x.enQueue("John Cena");
+    x.displayQueue();
+    x.enQueue("Kanye West");
+    x.displayQueue();
+    x.enQueue("John Jones");
+    x.displayQueue();
+    x.enQueue("Jhay Cortez");
+    x.displayQueue();
+    x.deQueue();
+    x.displayQueue();
+    x.deQueue();
+    x.displayQueue();
+    x.deQueue();
+    x.displayQueue();*/
     return 0;
 
 }
