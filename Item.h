@@ -14,7 +14,7 @@ class Item {
 private:
     string name;    //item name
     string cat;     // category
-    string exp;     // expirey date
+    double exp;     // expirey date
     double price;    // price of item
 
 public:
@@ -25,7 +25,7 @@ public:
     void setCategory(string category) {
         this->cat = category;
     }
-    void setExpiryDate(string expiry) {
+    void setExpiryDate(double expiry) {
         this->exp = expiry;
     }
     void setPrice(double price) {
@@ -38,7 +38,7 @@ public:
     string getCategory() {
         return cat;
     }
-    string getExpiryDate() {
+    double getExpiryDate() {
         return exp;
     }
     double getPrice() {
@@ -55,6 +55,4 @@ public:
         cout << "-------------------------------------" << endl;
 
     }
-
-    //friend class DLL;
 };
