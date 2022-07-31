@@ -64,11 +64,10 @@ public:
 		else
 			return false;
 	}
-
-	//~Queue<dt>() {
-	//	while (!isEmpty) {
-	//		deQueue();
-	//	}
-	//}
+	~Queue<dt>() {
+		while (!isEmpty()) {
+			deQueue();
+		}
+	}
 
 };
