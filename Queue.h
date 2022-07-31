@@ -13,6 +13,11 @@ public:
 		this->data = data;
 		next = NULL;
 	}
+	//~QNode() {
+	//	data = NULL;
+	//	next = NULL;
+	//	delete QNode;
+	//}
 };
 
 
@@ -57,13 +62,14 @@ public:
 		}
 		return d;
 	}
-	//isEmpty
+
 	bool isEmpty() {
 		if (!head)
 			return true;
 		else
 			return false;
 	}
+
 	~Queue<dt>() {
 		while (!isEmpty()) {
 			deQueue();

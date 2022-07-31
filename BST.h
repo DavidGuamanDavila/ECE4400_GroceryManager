@@ -17,16 +17,17 @@ public:
 		ptr = p;
 	}
 };
-
-template<typename dt>
+//dt is the data type used for the key value
+//qt is the type of the elements stored in the queue
+template<typename dt, typename qt>
 class BST {
+
+private:
+
 	Node<dt>* root = NULL;
-	
-public:
-	//key is either price or EXP date
-	void insert(dt k, NodeDLL<Item>* p) {
-		root = insertRec(root, k, p);
-	}
+	Queue<qt>* queue = NULL;
+
+	//METHODS USED FOR RECURSION
 	Node<dt>* insertRec(Node<dt>* root, dt k, NodeDLL<Item>* p) {
 		//insert if there are no items
 		if (root == NULL) {
@@ -39,10 +40,6 @@ public:
 			root->right = insertRec(root->right, k, p);
 		// NOTE: handle quantity case here
 		return root;
-	}
-
-	void search(dt k) {
-		searchRec(root, k);
 	}
 
 	Node<dt>* searchRec(Node<dt>* n, dt k) {
@@ -58,9 +55,6 @@ public:
 				return n;
 			}
 		}
-	}
-	void deleteNode(dt k) {
-		root = deleteNodeRec(root, k);
 	}
 
 	Node<dt>* deleteNodeRec(Node<dt>* n, dt k) {
@@ -80,7 +74,7 @@ public:
 			//node with one or no children
 			if (n->left == NULL && n->right == NULL)
 				return NULL;
-			else if(n->left == NULL){
+			else if (n->left == NULL) {
 				Node<dt>* temp = n->right;
 				free(n);
 				return temp;
@@ -104,23 +98,49 @@ public:
 		}
 		return n;
 	}
+
 	//Find node with smallest value
 	Node<dt>* minNode(Node<dt>* n) {
 		Node<dt>* curr = n;
-		while (curr && curr->left != NULL) 
+		while (curr && curr->left != NULL)
 			curr = curr->left;
 
 		return curr;
 	}
 
-	void display() {
-		displayRec(root);
-	}
-	void displayRec(Node<dt>* root) {
+	void displayRec(Node<dt>* root, Queue<qt>* q) {
 		if (root != NULL) {
-			displayRec(root->left);
-			cout << root->key << " ";
-			displayRec(root->right);
+			displayRec(root->right, q);
+			q->enQueue(root->ptr->data);
+			displayRec(root->left, q);
 		}
 	}
+
+public:
+
+	BST() {
+		root = NULL;
+		queue = new Queue<qt>();
+	}
+	//key is either price or EXP date from Item Class
+	void insert(dt k, NodeDLL<Item>* p) {
+		root = insertRec(root, k, p);
+	}
+
+	void search(dt k) {
+		searchRec(root, k);
+	}
+
+
+	void deleteNode(dt k) {
+		root = deleteNodeRec(root, k);
+	}
+
+	//used to load a queue to be returned for printing data. 
+	//The Queue will be DeQueued By GroceryControl class
+	Queue<qt>* display() {
+		displayRec(root,queue);
+		return queue;
+	}
+
 };
