@@ -7,7 +7,6 @@ class CQ
 {
 	// Initialize front and rear
 	int rear, front;
-
 	// Initialize variable that will store the size of the array
 	int SIZE;
 	//Initialize the array
@@ -40,8 +39,7 @@ public:
 			front = rear = 0;
 			content[rear] = value;
 		}
-		//Address scenerio where a deletion previously occured and there exists space
-		//for insertion
+		//Address scenerio where a deletion previously occured and there exists space for insertion
 		else if (rear == SIZE - 1 && front != 0)
 		{
 			rear = 0;
@@ -85,7 +83,7 @@ public:
 			cout << "No customer information to display.";
 			return;
 		}
-		cout << "These are the most recent customers:";
+		cout << "These are the most recent customers: ";
 		if (rear >= front)
 		{
 			for (int j = front; j <= rear; j++)

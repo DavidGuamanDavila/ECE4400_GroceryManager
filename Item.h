@@ -7,15 +7,16 @@
 //
 
 #include <string>
-
+#include <iostream>
 using namespace std;
 
 class Item {
 private:
-    string name;    //item name
-    string cat;     // category
-    double exp;     // expirey date
-    double price;    // price of item
+    string name;        //item name
+    string cat;         // category
+    int exp;         // expiry date
+    double price;       // price of item
+    int stock = 1;      //Stock
 
 public:
     //Methods to write to private variables
@@ -31,6 +32,13 @@ public:
     void setPrice(double price) {
         this->price = price;
     }
+    void incStock() {
+        stock++;
+    }
+    void decStock() {
+        stock--;
+    }
+
     //Methods to get private variables
     string getName() {
         return name;
@@ -44,6 +52,9 @@ public:
     double getPrice() {
         return price;
     }
+    int getStock() {
+        return stock;
+    }
     //Method to print all the information
 
     void displayInfo() {
@@ -55,4 +66,6 @@ public:
         cout << "-------------------------------------" << endl;
 
     }
+
+    //friend class DLL;
 };

@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <iostream>
+#include "Queue.h"
 using namespace std;
 
 // Node Class Begins
@@ -28,6 +30,7 @@ class DLL {
 public:
     //Initialize head reference node
     NodeDLL <DT>* head_ref;
+
     // Constructor
     DLL() {
         head_ref = NULL;
@@ -48,6 +51,22 @@ public:
                 temp = temp->next;
             }
         }
+    }
+    DT* searchDuplicate(DelT i) {
+        if (head_ref == NULL) {
+            return NULL;
+        }
+        else {
+            NodeDLL < DT >* curr = head_ref;
+            while (curr != NULL) {
+                if (i == curr->data->getName()) {
+                    return curr->data;
+                }
+                curr = curr->next;
+            }
+            return NULL;
+        }
+        
     }
     // Function that inserts data to the begining of the DLL and returns a node
     NodeDLL <DT>* pushDLL(DT* new_data) {
@@ -74,7 +93,7 @@ public:
     }
 
     ////Function that Deletes an item using the name of the item and returns a float, the price of the item deleted
-    double deletevalueDLL(DelT key, bool checkPriceorExpiry) {
+    double* deletevalueDLL(DelT key) {
         // Check if DLL or the name of the item is empty
         if (head_ref == NULL || key == "") {
             if (head_ref == NULL) {
@@ -91,8 +110,8 @@ public:
             NodeDLL < DT >* prev = NULL;
             //Create variable that will have the current item name
             DelT CurrItemName = curr->data->getName();
-            //Initialize variable that will return the price or expiry date
-            double information;
+            //Initialize array that will return the price or expiry date
+            double information[2];
             // Traverse through the DLL
             while (CurrItemName != key) {
                 //Address situation where the key is not within the SLL
@@ -106,16 +125,8 @@ public:
                 //Update the current item name with respect to the current pointer
                 CurrItemName = curr->data->getName();
             }
-            //-------------------------------------------------
-            // Determine what information to get from the item
-            //If checkPriceorExpiry = true then get the price and store the price
-            if (checkPriceorExpiry == true) {
-                information = curr->data->getPrice();
-            }
-            //If checkPriceorExpiry = false then get the expiry date and store the expiry date
-            else {
-                information = curr->data->getExpiryDate();
-            }
+            information[0] = curr->data->getPrice();
+            information[1] = curr->data->getExpiryDate();
             // ----------------------------------------------------
             // Now address different situations
             // Check if the node found is the only node in the list
@@ -148,6 +159,37 @@ public:
             }
             return information;
         }
+    }
+    //Function that displays by category and returns a queue
+    Queue <DT>* displayCat(DelT category) {
+        //Address scenario where the DLL is empty and there is no item
+        //Create a temporary node to traverse the DLL
+        NodeDLL <DT>* temp = head_ref;
+        //Create a queue that will be returned
+        Queue<DT>* queue = new Queue<DT>();
+        if (head_ref == NULL) {
+            cout << "List is empty!" << endl;
+        }
+        //Address scenario where the DLL is not empty
+        else {
+            //Traverse the DLL while the temp is not NULL
+            while (temp != NULL) {
+                //Compare if the current Node category is equal to the parameter passed into the function
+                if (temp->data->getCategory() == category) {
+                    //Enqueue
+                    queue->enQueue(temp->data);
+                    //Move to the next node
+                    temp = temp->next;
+                }
+                //Address scenario where the Node category is not equal to the parameter passed into the function
+                else {
+                    //Move to the next node
+                    temp = temp->next;
+                }
+            }
+        }
+        //Finally, return the queue
+        return queue;
     }
     // Destructor 
     //~DLL() {
