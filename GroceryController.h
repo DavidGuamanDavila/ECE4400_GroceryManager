@@ -1,6 +1,8 @@
 #pragma once
 
 #include <iostream>
+#include <iomanip>
+#include <fstream>
 #include <string>
 
 #include "BST.h"
@@ -34,6 +36,7 @@ private:
 			cout << n->getName() << ", ";
 			cout << n->getCategory() << ", ";
 			cout << n->getPrice() << ", ";
+			cout << setprecision(9);
 			cout << n->getExpiryDate() << ", ";
 			cout << n->getStock();
 			cout << endl;
@@ -76,8 +79,11 @@ public:
 		// index 1 = expiry
 		double* priceAndExpiry = GroceryList->deletevalueDLL(name);
 
-		GL_Price->deleteNode(priceAndExpiry[0]);
-		GL_Exp->deleteNode(priceAndExpiry[1]);
+		if (priceAndExpiry != NULL) {
+			GL_Price->deleteNode(priceAndExpiry[0]);
+			GL_Exp->deleteNode(priceAndExpiry[1]);
+		}
+
 	}
 	void addCustomer(string customer) {
 		Customer_History->enQueue(customer);
@@ -87,6 +93,10 @@ public:
 		cout << "List:" << endl;
 		GroceryList->printDLL();
 	}
+	Queue<Item>* getList() {
+		return GroceryList->printDLL();
+	}
+
 	void displayByPrice() {
 		cout << "PRICE:" << endl;
 		PrintItem(GL_Price->display());
@@ -104,5 +114,24 @@ public:
 		cout << "Customer History:" << endl;
 		Customer_History->displayQueue();
 	}
-
+	void writeFile() {
+		ofstream out_file("../output.json");
+		if (!out_file) {
+			cerr << "Error with file" << endl;
+			return;
+		}
+		Queue<Item>* q = getList();
+		while (!q->isEmpty()) {
+			Item* i = q->deQueue();
+			out_file << "{" << endl;
+			out_file << "   \"name\""<<":"<< "\""<< i->getName() << "\"," << endl;
+			out_file << "   \"cat\"" << ":" << "\"" << i->getCategory() << "\"," << endl;
+			out_file<< setprecision(9);
+			out_file << "   \"exp\"" << ":" << i->getExpiryDate()<<"," << endl;
+			out_file << "   \"price\"" << ":"<< i->getPrice() << "," << endl;
+			out_file << "   \"stock\"" << ":"<< i->getStock() << endl;
+			out_file << "}" << endl;
+		}
+		out_file.close();
+	}
 };
